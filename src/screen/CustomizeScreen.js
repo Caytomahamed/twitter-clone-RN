@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View, Text, Dimensions, StyleSheet, Switch,Pressable } from "react-native";
+import {
+  View,
+  Text,
+  Dimensions,
+  StyleSheet,
+  Switch,
+  Pressable,
+} from "react-native";
 import CustomHeader from "../components/CustomHeader/CustomHeader";
 import CustomTitle from "../components/CustomTitle/CustomTitle";
 
@@ -11,7 +18,7 @@ const CustomizeScreen = ({ navigation }) => {
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <View height={(4 * windowHeight) / 5}>
         <CustomHeader type="icon" goback={navigation} />
         <CustomTitle title="Customiz your a acount" align="center" />
@@ -66,12 +73,13 @@ const CustomizeScreen = ({ navigation }) => {
           </Text>
         </View>
       </View>
-      <View
-        style={styles.action}
-        height={(1 * windowHeight) / 5}
-      >
-        <Pressable style={styles.button}>
-            <Text style={styles.btnxt}>Next</Text>
+
+      <View style={styles.action}>
+        <Pressable
+          style={styles.button}
+          onPress={() => navigation.navigate("createAccountScreen")}
+        >
+          <Text style={styles.btnxt}>Next</Text>
         </Pressable>
       </View>
     </SafeAreaView>
@@ -91,42 +99,43 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   switchContainer: {
-    width: 80,
+    width: 50,
     alignItems: "center",
     justifyContent: "center",
   },
   text: {
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: 600,
   },
   switch: {
-    transform: [{ scaleX: 2 }, { scaleY: 2 }],
+    transform: [{ scaleX: 1.45 }, { scaleY: 1.5 }],
   },
   more: {
     fontSize: 14,
-    marginTop: 15,
+    marginTop: 30,
   },
   helpCenter: {
     color: "#1DA1F2",
+  },
+  action: {
+    flex: 1,
+    justifyContent: "flex-end",
+    padding: 10,
   },
   button: {
     fontSize: 20,
     fontWeight: 500,
     color: "#fff",
     backgroundColor: "#1DA1F2",
-    padding: 12,
+    padding: 10,
     textAlign: "center",
     borderRadius: 30,
   },
-  action:{
-    justifyContent:"flex-end",
-    padding:10
-  },
   btnxt: {
     color: "#fff",
-    fontSize:20,
-    fontWeight:700,
-    textAlign:"center",
+    fontSize: 18,
+    fontWeight: 700,
+    textAlign: "center",
   },
 });
 export default CustomizeScreen;

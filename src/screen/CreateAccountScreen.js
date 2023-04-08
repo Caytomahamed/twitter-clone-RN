@@ -14,7 +14,7 @@ import CustomHeader from "../components/CustomHeader/CustomHeader";
 import CustomTitle from "../components/CustomTitle/CustomTitle";
 import CustomInput from "../components/CustomInput/CustomInput";
 
-const SignupScreen = ({ navigation }) => {
+const CreateAccountScreen = ({ navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [birthDate, setBirthDate] = useState("");
@@ -45,14 +45,20 @@ const SignupScreen = ({ navigation }) => {
               setValue={setName}
             />
           </View>
+
+          <Text style={styles.terms}>
+            By signing up, you agree to{" "}
+            <Text style={styles.termsText}>Term, Privacy Policy, </Text>
+            and <Text style={styles.termsText}>Cookie Use.</Text>
+          </Text>
         </View>
-        <View style={styles.actionContianer} >
+        <View style={styles.actionContianer}>
           <View style={styles.action}>
             <Pressable
-              style={styles.nextBtn}
-              onPress={() => navigation.navigate("customizeScreen")}
+              style={styles.button}
+              onPress={() => navigation.navigate("verifyScreen")}
             >
-              <Text style={styles.nextBtnText}>Next</Text>
+              <Text style={styles.btnxt}>Sign up</Text>
             </Pressable>
           </View>
         </View>
@@ -72,30 +78,36 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   actionContianer: {
-    flex:1,
+    flex: 1,
     justifyContent: "flex-end",
-    // backgroundColor:"red"
   },
   action: {
-    borderTopColor: "#E1E8ED",
-    borderTopWidth: 2,
-    padding:15,
-    paddingRight:20,
-
-    alignItems: "flex-end",
-    justifyContent: "center",
+    flex: 1,
+    justifyContent: "flex-end",
+    padding: 10,
   },
-  nextBtn: {
-    width: 100,
-    padding: 8,
-    borderRadius: 50,
+  button: {
+    fontSize: 20,
+    fontWeight: 500,
+    color: "#fff",
     backgroundColor: "#1DA1F2",
-  },
-  nextBtnText: {
+    padding: 10,
     textAlign: "center",
+    borderRadius: 30,
+  },
+  btnxt: {
     color: "#fff",
     fontSize: 18,
+    fontWeight: 700,
+    textAlign: "center",
+  },
+  terms: {
+    fontSize: 14,
+    padding: 20,
+    transform: [{ translateY: -35 }],
+  },
+  termsText: {
+    color: "#1DA1F2",
   },
 });
-
-export default SignupScreen;
+export default CreateAccountScreen;
