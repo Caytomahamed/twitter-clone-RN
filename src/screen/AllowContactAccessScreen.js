@@ -4,10 +4,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import CustomHeader from "../components/CustomHeader/CustomHeader";
 import CustomTitle from "../components/CustomTitle/CustomTitle";
 import Icon from "react-native-vector-icons/AntDesign";
-import CustomButton from "../components/CustomButton/CustomButton";
+import CustomButton, { onPress } from "../components/CustomButton/CustomButton";
 import CustomDescription from "../components/CustomDescription/CustomDescription";
 
-const AllowContactAccessScreen = () => {
+const AllowContactAccessScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <CustomHeader />
@@ -29,15 +29,15 @@ const AllowContactAccessScreen = () => {
         <View style={styles.actions}>
           <CustomButton
             title="Next"
-            onPress={() => onPress(navigation, "AddProfileImageScreeN")}
-            fontSize={18}
+            onPress={() => onPress(navigation, "selectInterenstsScreen")}
+            fontSize={16}
             width={"100%"}
             borderRadius={30}
           />
           <CustomButton
             title="Skip for now"
-            onPress={() => onPress(navigation, "AddProfileImageScreeN")}
-            fontSize={18}
+            onPress={() => onPress(navigation, "selectInterenstsScreen")}
+            fontSize={16}
             width={"100%"}
             borderRadius={30}
             color="#Fff"
@@ -83,6 +83,6 @@ const styles = StyleSheet.create({
     color: "#2196F3",
   },
   actions: {
-    padding: 20,
+    marginBottom: 12,
   },
 });

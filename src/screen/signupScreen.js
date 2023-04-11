@@ -14,6 +14,7 @@ import CustomHeader from "../components/CustomHeader/CustomHeader";
 import CustomTitle from "../components/CustomTitle/CustomTitle";
 import CustomInput from "../components/CustomInput/CustomInput";
 import CustomButton, { onPress } from "../components/CustomButton/CustomButton";
+import CallActionScreensButtom from "../components/CustomCallActionScreensButtom/CustomCallActionScreensButtom";
 
 const SignupScreen = ({ navigation }) => {
   const [name, setName] = useState("");
@@ -48,15 +49,13 @@ const SignupScreen = ({ navigation }) => {
           </View>
         </View>
         <View style={styles.actionContianer}>
-          <View style={styles.action}>
-            <CustomButton
-              title="Next"
-              onPress={() => onPress(navigation, "customizeScreen")}
-              fontSize={18}
-              width={100}
-              borderRadius={50}
-            />
-          </View>
+          <CallActionScreensButtom
+            color="#E1E8ED"
+            width={2}
+            padding={20}
+            nextScreen="customizeScreen"
+            goTo={navigation}
+          />
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
@@ -78,8 +77,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   action: {
-    borderTopColor: "#E1E8ED",
-    borderTopWidth: 2,
     padding: 14,
     paddingRight: 20,
 

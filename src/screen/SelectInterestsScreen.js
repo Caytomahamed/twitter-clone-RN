@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, FlatList, SafeAreaView } from "react-native";
+import { StyleSheet, Text, View, ScrollView, SafeAreaView } from "react-native";
 import CustomHeader from "../components/CustomHeader/CustomHeader";
 import CustomTitle from "../components/CustomTitle/CustomTitle";
 import CustomDescription from "../components/CustomDescription/CustomDescription";
-import CustomButton from "../components/CustomButton/CustomButton";
+import CustomButton, { onPress } from "../components/CustomButton/CustomButton";
+import CustomCallActionScreensButtom from "../components/CustomCallActionScreensButtom/CustomCallActionScreensButtom";
 
-const SelectInterestsScreen = () => {
+const SelectInterestsScreen = ({ navigation }) => {
   const [interests, setInterests] = useState([
     { id: "1", name: "Food" },
     { id: "2", name: "Art and culture" },
@@ -31,37 +32,35 @@ const SelectInterestsScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <CustomHeader />
-        <CustomTitle
-          title="What do you want to see on Twitter?"
-          align="center"
-        />
-        <CustomDescription description={descriptionText} />
-      </View>
+      <ScrollView>
+        <View style={styles.header}>
+          <CustomHeader />
+          <CustomTitle
+            title="What do you want to see on Twitter?"
+            align="center"
+          />
+          <CustomDescription description={descriptionText} />
+        </View>
 
-      <FlatList
-        data={interests}
-        renderItem={renderInterest}
-        keyExtractor={(item) => item.id}
-        numColumns={2}
-        contentContainerStyle={styles.interestsContainer}
-      />
+        <View style={styles.interestsContainer}>
+          {interests.map((item) => (
+            <View style={styles.interest} key={item.id}>
+              <Text style={styles.interestText}>{item.name}</Text>
+            </View>
+          ))}
+        </View>
+      </ScrollView>
 
       <View>
         <View style={styles.actionContianer}>
-          <View style={styles.action}>
-            <View style={styles.selectNumber}>
-              <Text style={styles.selectNumberText}> 0 of 3 selected</Text>
-            </View>
-            <CustomButton
-              title="Next"
-              onPress={() => onPress(navigation, "customizeScreen")}
-              fontSize={18}
-              width={100}
-              borderRadius={50}
-            />
-          </View>
+          <CustomCallActionScreensButtom
+            description="0 of 3 selected"
+            nextScreen="selectInterestsDetailScreen"
+            color="#E1E8ED"
+            width={2}
+            padding={20}
+            goTo={navigation}
+          />
         </View>
       </View>
     </SafeAreaView>
@@ -78,13 +77,15 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: "#fFF",
     paddingHorizontal: 20,
-    marginBottom: 70,
+    marginBottom: 40,
     marginTop: 40,
   },
   interestsContainer: {
     padding: 8,
-    paddingTop: 50,
+    paddingTop: 15,
     borderColor: "#E1E8ED",
+    flexDirection: "row",
+    flexWrap: "wrap",
     borderTopWidth: 1,
     justifyContent: "space-between",
   },
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#Fff",
 
     borderWidth: 2,
-    borderRadius: 10,
+    borderRadius: 20,
     justifyContent: "flex-end",
     padding: 12,
     shadowColor: "#14171A",
@@ -108,26 +109,11 @@ const styles = StyleSheet.create({
     elevation: 5000,
   },
   interestText: {
-    fontSize: 20,
+    fontSize: 18,
     color: "#14171A",
     fontWeight: "bold",
   },
   actionContianer: {
     justifyContent: "flex-end",
-  },
-  action: {
-    padding: 14,
-    paddingRight: 20,
-
-    alignItems: "flex-end",
-    justifyContent: "center",
-    position: "relative",
-  },
-  selectNumber: {
-    position: "absolute",
-    left: 14,
-  },
-  selectNumberText: {
-    color: "green",
   },
 });

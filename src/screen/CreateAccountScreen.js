@@ -58,7 +58,7 @@ const CreateAccountScreen = ({ navigation }) => {
             <CustomButton
               title="Next"
               onPress={() => onPress(navigation, "verifyScreen")}
-              fontSize={18}
+              fontSize={16}
               width={"100%"}
               borderRadius={30}
             />
@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     padding: 20,
     transform: [{ translateY: -35 }],
+    color: "#657786",
   },
   termsText: {
     color: "#1DA1F2",

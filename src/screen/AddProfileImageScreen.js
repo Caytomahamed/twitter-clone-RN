@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import CustomHeader from "../components/CustomHeader/CustomHeader";
 import CustomTitle from "../components/CustomTitle/CustomTitle";
 import Icon from "react-native-vector-icons/AntDesign";
-import CustomButton from "../components/CustomButton/CustomButton";
+import CustomButton, { onPress } from "../components/CustomButton/CustomButton";
 import CustomDescription from "../components/CustomDescription/CustomDescription";
 
 const AddProfileImageScreen = ({ navigation }) => {
@@ -13,7 +13,7 @@ const AddProfileImageScreen = ({ navigation }) => {
       <CustomHeader />
       <View style={styles.bodyContainer}>
         <View style={styles.header}>
-          <CustomTitle title="Pict a profile picture" align="center" />
+          <CustomTitle title="Pick a profile picture" align="center" />
           <CustomDescription description=" Have a favorite selfie? upload now" />
         </View>
         <View style={styles.imageContainer}>
@@ -30,15 +30,15 @@ const AddProfileImageScreen = ({ navigation }) => {
         <View style={styles.actions}>
           <CustomButton
             title="Next"
-            onPress={() => onPress(navigation, "AddProfileImageScreeN")}
-            fontSize={18}
+            onPress={() => onPress(navigation, "addBioScreen")}
+            fontSize={16}
             width={"100%"}
             borderRadius={30}
           />
           <CustomButton
             title="Skip for now"
-            onPress={() => onPress(navigation, "AddProfileImageScreeN")}
-            fontSize={18}
+            onPress={() => onPress(navigation, "addBioScreen")}
+            fontSize={16}
             width={"100%"}
             borderRadius={30}
             color="#Fff"
@@ -90,6 +90,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   actions: {
-    padding: 20,
+    marginBottom: 12,
   },
 });

@@ -15,6 +15,6 @@ const styles = StyleSheet.create({
   text: {
     marginTop: 15,
     color: "#657786",
-    fontSize: 18,
+    fontSize: 16,
   },
 });

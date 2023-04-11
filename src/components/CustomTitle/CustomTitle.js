@@ -11,11 +11,7 @@ const CustomTitle = ({ type = "secondary", title, align, margin }) => {
       )}
       {type === "third" && (
         <Text
-          style={[
-            styles.titleThird,
-            styles[`${align}`],
-            styles[`${margin}`],
-          ]}
+          style={[styles.titleThird, styles[`${align}`], styles[`${margin}`]]}
         >
           {title}
         </Text>
@@ -49,7 +45,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   titleThird: {
-    fontSize: 21,
+    fontSize: 20,
     fontWeight: 700,
     color: "#14171A",
     marginBottom: 5,

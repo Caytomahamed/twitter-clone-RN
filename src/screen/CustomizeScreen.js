@@ -79,7 +79,7 @@ const CustomizeScreen = ({ navigation }) => {
         <CustomButton
           title="Next"
           onPress={() => onPress(navigation, "createAccountScreen")}
-          fontSize={18}
+          fontSize={16}
           width={"100%"}
           borderRadius={30}
         />

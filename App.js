@@ -10,6 +10,7 @@ import AddBioScreen from "./src/screen/AddBioScreen";
 import EnableNotificationScreen from "./src/screen/EnableNotificationScreen";
 import AllowContactAccessScreen from "./src/screen/AllowContactAccessScreen";
 import SelectInterestsScreen from "./src/screen/SelectInterestsScreen";
+import SelectInterestsDetailScreen from "./src/screen/SelectInterestsDetailScreen";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -20,11 +21,6 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name="selectInterenstsScreen"
-          component={SelectInterestsScreen}
-          options={{ headerShown: false }}
-        />
         <Stack.Screen
           name="startScreen"
           component={StartScreen}
@@ -56,12 +52,12 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="AddProfileImageScreeN"
+          name="AddProfileImageScreen"
           component={AddProfileImageScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="addBioScreeN"
+          name="addBioScreen"
           component={AddBioScreen}
           options={{ headerShown: false }}
         />
@@ -73,6 +69,16 @@ export default function App() {
         <Stack.Screen
           name="allowContactAccessScreen"
           component={AllowContactAccessScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="selectInterenstsScreen"
+          component={SelectInterestsScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="selectInterestsDetailScreen"
+          component={SelectInterestsDetailScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

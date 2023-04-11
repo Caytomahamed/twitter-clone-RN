@@ -42,7 +42,7 @@ const VerifyScreen = ({ navigation }) => {
               <CustomButton
                 title="Next"
                 onPress={() => onPress(navigation, "setPasswordScreen")}
-                fontSize={18}
+                fontSize={16}
                 width={"100%"}
                 borderRadius={30}
               />

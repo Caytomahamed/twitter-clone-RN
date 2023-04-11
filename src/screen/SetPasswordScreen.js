@@ -43,8 +43,8 @@ const SetPasswordScreen = ({ navigation }) => {
           </View>
           <CustomButton
             title="Next"
-            onPress={() => onPress(navigation, "AddProfileImageScreeN")}
-            fontSize={18}
+            onPress={() => onPress(navigation, "AddProfileImageScreen")}
+            fontSize={16}
             width={"100%"}
             borderRadius={30}
             style={{ marginTop: 40 }}
