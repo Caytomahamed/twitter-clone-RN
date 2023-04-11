@@ -12,6 +12,8 @@ import CustomHeader from "../components/CustomHeader/CustomHeader";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomTitle from "../components/CustomTitle/CustomTitle";
 import CustumVerifyInput from "../components/CustumVerifyInput/CustumVerifyInput";
+import CustomButton, { onPress } from "../components/CustomButton/CustomButton";
+import CustomDescription from "../components/CustomDescription/CustomDescription";
 
 const VerifyScreen = ({ navigation }) => {
   const [code, setCode] = useState();
@@ -24,9 +26,7 @@ const VerifyScreen = ({ navigation }) => {
       <SafeAreaView>
         <CustomHeader type="icon" goback={navigation} />
         <CustomTitle title="We sent you a code" align="center" />
-        <Text style={styles.description}>
-          Enter it below to verify +44 7552 1324567
-        </Text>
+        <CustomDescription description="    Enter it below to verify +44 7552 1324567" />
         <View height={(windowHeight * 2) / 3} style={styles.verifyContainer}>
           <View style={styles.verifyBox}>
             <CustumVerifyInput value={code} setValue={onCode} />
@@ -39,12 +39,13 @@ const VerifyScreen = ({ navigation }) => {
           <View style={styles.actionContianer}>
             <View style={styles.action}>
               <Text style={styles.recieve}>Don't recieve SMS?</Text>
-              <Pressable
-                style={styles.button}
-                onPress={() => navigation.navigate("verifyScreen")}
-              >
-                <Text style={styles.btnxt}>Next </Text>
-              </Pressable>
+              <CustomButton
+                title="Next"
+                onPress={() => onPress(navigation, "setPasswordScreen")}
+                fontSize={18}
+                width={"100%"}
+                borderRadius={30}
+              />
             </View>
           </View>
         </View>
@@ -77,22 +78,7 @@ const styles = StyleSheet.create({
   action: {
     flex: 1,
     justifyContent: "flex-end",
-    padding: 10,
-  },
-  button: {
-    fontSize: 20,
-    fontWeight: 500,
-    color: "#fff",
-    backgroundColor: "#1DA1F2",
-    padding: 10,
-    textAlign: "center",
-    borderRadius: 30,
-  },
-  btnxt: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: 700,
-    textAlign: "center",
+    paddingHorizontal: 20,
   },
 });
 export default VerifyScreen;

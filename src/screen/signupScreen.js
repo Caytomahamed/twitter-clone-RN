@@ -13,6 +13,7 @@ import React, { useState } from "react";
 import CustomHeader from "../components/CustomHeader/CustomHeader";
 import CustomTitle from "../components/CustomTitle/CustomTitle";
 import CustomInput from "../components/CustomInput/CustomInput";
+import CustomButton, { onPress } from "../components/CustomButton/CustomButton";
 
 const SignupScreen = ({ navigation }) => {
   const [name, setName] = useState("");
@@ -46,14 +47,15 @@ const SignupScreen = ({ navigation }) => {
             />
           </View>
         </View>
-        <View style={styles.actionContianer} >
+        <View style={styles.actionContianer}>
           <View style={styles.action}>
-            <Pressable
-              style={styles.nextBtn}
-              onPress={() => navigation.navigate("customizeScreen")}
-            >
-              <Text style={styles.nextBtnText}>Next</Text>
-            </Pressable>
+            <CustomButton
+              title="Next"
+              onPress={() => onPress(navigation, "customizeScreen")}
+              fontSize={18}
+              width={100}
+              borderRadius={50}
+            />
           </View>
         </View>
       </SafeAreaView>
@@ -72,29 +74,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   actionContianer: {
-    flex:1,
+    flex: 1,
     justifyContent: "flex-end",
-    // backgroundColor:"red"
   },
   action: {
     borderTopColor: "#E1E8ED",
     borderTopWidth: 2,
-    padding:15,
-    paddingRight:20,
+    padding: 14,
+    paddingRight: 20,
 
     alignItems: "flex-end",
-    justifyContent: "center",
-  },
-  nextBtn: {
-    width: 100,
-    padding: 8,
-    borderRadius: 50,
-    backgroundColor: "#1DA1F2",
-  },
-  nextBtnText: {
-    textAlign: "center",
-    color: "#fff",
-    fontSize: 18,
   },
 });
 

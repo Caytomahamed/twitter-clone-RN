@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import CustomHeader from "../components/CustomHeader/CustomHeader";
 import CustomTitle from "../components/CustomTitle/CustomTitle";
+import CustomButton, { onPress } from "../components/CustomButton/CustomButton";
 
 const CustomizeScreen = ({ navigation }) => {
   const windowHeight = Dimensions.get("window").height;
@@ -75,12 +76,13 @@ const CustomizeScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.action}>
-        <Pressable
-          style={styles.button}
-          onPress={() => navigation.navigate("createAccountScreen")}
-        >
-          <Text style={styles.btnxt}>Next</Text>
-        </Pressable>
+        <CustomButton
+          title="Next"
+          onPress={() => onPress(navigation, "createAccountScreen")}
+          fontSize={18}
+          width={"100%"}
+          borderRadius={30}
+        />
       </View>
     </SafeAreaView>
   );
@@ -89,10 +91,10 @@ const CustomizeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   content: {
     padding: 10,
+    paddingHorizontal: 20,
   },
   box: {
     flexDirection: "row",
-    height: "auto",
   },
   textContainer: {
     flex: 1,
@@ -120,22 +122,8 @@ const styles = StyleSheet.create({
   action: {
     flex: 1,
     justifyContent: "flex-end",
-    padding: 10,
-  },
-  button: {
-    fontSize: 20,
-    fontWeight: 500,
-    color: "#fff",
-    backgroundColor: "#1DA1F2",
-    padding: 10,
-    textAlign: "center",
-    borderRadius: 30,
-  },
-  btnxt: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: 700,
-    textAlign: "center",
+    paddingBottom: 17,
+    paddingHorizontal: 20,
   },
 });
 export default CustomizeScreen;

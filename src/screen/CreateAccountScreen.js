@@ -13,6 +13,7 @@ import React, { useState } from "react";
 import CustomHeader from "../components/CustomHeader/CustomHeader";
 import CustomTitle from "../components/CustomTitle/CustomTitle";
 import CustomInput from "../components/CustomInput/CustomInput";
+import CustomButton, { onPress } from "../components/CustomButton/CustomButton";
 
 const CreateAccountScreen = ({ navigation }) => {
   const [name, setName] = useState("");
@@ -54,12 +55,13 @@ const CreateAccountScreen = ({ navigation }) => {
         </View>
         <View style={styles.actionContianer}>
           <View style={styles.action}>
-            <Pressable
-              style={styles.button}
-              onPress={() => navigation.navigate("verifyScreen")}
-            >
-              <Text style={styles.btnxt}>Sign up</Text>
-            </Pressable>
+            <CustomButton
+              title="Next"
+              onPress={() => onPress(navigation, "verifyScreen")}
+              fontSize={18}
+              width={"100%"}
+              borderRadius={30}
+            />
           </View>
         </View>
       </SafeAreaView>
@@ -84,22 +86,8 @@ const styles = StyleSheet.create({
   action: {
     flex: 1,
     justifyContent: "flex-end",
-    padding: 10,
-  },
-  button: {
-    fontSize: 20,
-    fontWeight: 500,
-    color: "#fff",
-    backgroundColor: "#1DA1F2",
-    padding: 10,
-    textAlign: "center",
-    borderRadius: 30,
-  },
-  btnxt: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: 700,
-    textAlign: "center",
+    paddingBottom: 17,
+    paddingHorizontal: 20,
   },
   terms: {
     fontSize: 14,

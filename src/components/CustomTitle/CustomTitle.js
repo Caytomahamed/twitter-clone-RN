@@ -43,13 +43,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   titleSecondary: {
-    fontSize: 30,
+    fontSize: 26,
     fontWeight: 700,
     color: "#14171A",
     marginBottom: 5,
   },
   titleThird: {
-    fontSize: 22,
+    fontSize: 21,
     fontWeight: 700,
     color: "#14171A",
     marginBottom: 5,

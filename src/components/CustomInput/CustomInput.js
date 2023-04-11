@@ -16,8 +16,8 @@ const CustomInput = ({ placeholder, value, setValue }) => {
 const styles = StyleSheet.create({
   input: {
     width: "90%",
-    fontSize: 17,
-    paddingBottom: 15,
+    fontSize: 18,
+    paddingBottom: 10,
     borderBottomColor: "#E1E8ED",
     borderBottomWidth: 1,
     marginBottom: 35,
