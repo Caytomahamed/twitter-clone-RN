@@ -263,7 +263,7 @@ const SelectInterestsDetailScreen = ({ navigation }) => {
       <View>
         <View style={styles.actionContianer}>
           <CustomCallActionScreensButtom
-            nextScreen="selectInterestsDetailScreen"
+            nextScreen="followPeopleScreen"
             color="#E1E8ED"
             width={2}
             padding={20}

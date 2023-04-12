@@ -14,6 +14,7 @@ import SelectInterestsDetailScreen from "./src/screen/SelectInterestsDetailScree
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import FollowPeopleScreen from "./src/screen/FollowPeopleScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -79,6 +80,11 @@ export default function App() {
         <Stack.Screen
           name="selectInterestsDetailScreen"
           component={SelectInterestsDetailScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="followPeopleScreen"
+          component={FollowPeopleScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

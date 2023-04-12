@@ -13,13 +13,19 @@ const CustomButton = ({
   width,
   textColor = "#fff",
   borderRadius,
+  padding = 10,
 }) => {
   return (
     <Pressable
       style={[
         styles.button,
         style,
-        { backgroundColor: color, width: width, borderRadius: borderRadius },
+        {
+          backgroundColor: color,
+          width: width,
+          borderRadius: borderRadius,
+          padding: padding,
+        },
       ]}
       onPress={onPress}
     >
@@ -33,9 +39,6 @@ const CustomButton = ({
 };
 
 const styles = StyleSheet.create({
-  button: {
-    padding: 10,
-  },
   buttonText: {
     fontWeight: "bold",
     textAlign: "center",
