@@ -99,7 +99,7 @@ exports.up = function (knex) {
         .references('id')
         .inTable('users');
       table.boolean('darkMode').defaultTo(false);
-      table.boolean('notifications').defaultTo(true);
+      table.boolean('notifications').defaultTo(false);
       table.timestamps(true, true);
     });
 };

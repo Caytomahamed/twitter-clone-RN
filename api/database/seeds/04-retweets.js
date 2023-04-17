@@ -1,13 +1,13 @@
 /**
  * @param { import("knex").Knex } knex
- * @returns { Promise<void> } 
+ * @returns { Promise<void> }
  */
-exports.seed = async function(knex) {
+exports.seed = async function (knex) {
   // Deletes ALL existing entries
-  await knex('table_name').del()
-  await knex('table_name').insert([
-    {id: 1, colName: 'rowValue1'},
-    {id: 2, colName: 'rowValue2'},
-    {id: 3, colName: 'rowValue3'}
+  await knex('retweets').del();
+  await knex('retweets').insert([
+    { id: 1, userId: 2, tweetId: 1 },
+    { id: 2, userId: 1, tweetId: 2 },
+    { id: 3, userId: 2, tweetId: 4 },
   ]);
 };
