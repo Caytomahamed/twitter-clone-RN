@@ -9,7 +9,7 @@ module.exports = {
     client: 'sqlite3',
     useNullAsDefault: true,
     connection: {
-      filename: './database/database.db3',
+      filename: './database/twitter-clone.db3',
     },
     pool: {
       afterCreate: (conn, done) => {

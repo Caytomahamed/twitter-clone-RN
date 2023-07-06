@@ -1,12 +1,17 @@
 exports.up = function (knex) {
   return knex.schema
+    .createTable('roles', (table) => {
+      table.increments('id').primary(), table.string('name').notNullable();
+    })
     .createTable('users', (table) => {
       table.increments('id').primary();
-      table.string('username').notNullable();
+      table.string('username');
+      table.string('name');
       table.string('email').notNullable();
       table.string('password').notNullable();
       table.string('profilePicture');
       table.string('bio');
+      table.string('birthdate');
       table.timestamps(true, true);
     })
     .createTable('tweets', (table) => {
@@ -113,5 +118,6 @@ exports.down = function (knex) {
     .dropTable('retweets')
     .dropTable('likes')
     .dropTable('tweets')
-    .dropTable('users');
+    .dropTable('users')
+    .dropTable('roles');
 };
