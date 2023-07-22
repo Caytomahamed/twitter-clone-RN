@@ -39,3 +39,8 @@ exports.createOne = async ({ table, newData, column }) => {
   const [id] = await db(`${table}`).insert(newData);
   return this.getOne(table, column, id);
 };
+
+exports.updateOne = async ({ table, condition, getById, changes, id }) => {
+  await db(`${table}`).where(`${condition}`, id).update(changes);
+  return getById(id);
+};

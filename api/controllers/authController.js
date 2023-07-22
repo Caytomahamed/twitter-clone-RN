@@ -44,8 +44,6 @@ exports.signup = catchAsync(async (req, res, next) => {
     field: req.body.email,
   });
 
-  console.log(isEmailExist);
-
   if (isEmailExist) {
     return next(
       new AppError('Email already exist.Please use another one.', 404)

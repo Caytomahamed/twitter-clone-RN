@@ -34,7 +34,13 @@ exports.findOne = (filter) => userHelper.selectBy(filter);
  */
 exports.create = (user) => userHelper.createUser(user);
 
-
+exports.findByIdandUpdate = (id,changes) => helperFactory.updateOne({
+    table:"users",
+    condition:"id",
+    getById:this.findById,
+    changes,
+    id
+})
 
 /**
  * Model: check if password is correct
