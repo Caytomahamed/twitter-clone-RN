@@ -16,8 +16,7 @@ exports.findAll = () => userHelper.selectBy();
  * @param {Number} id - use to filter the records.
  * @returns {object} the record.
  */
-exports.findById = (id) =>
-  helperFactory.getOne({ table: 'users', column: 'users.id', id });
+exports.findById = (id) => userHelper.selectById(id);
 
 /**
  * Model: select  records in database BY FILTER.

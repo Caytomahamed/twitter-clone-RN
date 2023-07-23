@@ -7,7 +7,9 @@ const router = express.Router();
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 
+router.patch('/updateMyPassword',authController.proctect,authController.updatePassword)
+
 router.route('/')
-      .get(authController.proctect,userController.getAllusers);
+      .get(authController.proctect,authController.restrictTo("admin"),userController.getAllusers);
 
 module.exports = router;

@@ -9,11 +9,17 @@ exports.up = function (knex) {
       table.string('name');
       table.string('email').notNullable();
       table.string('password').notNullable();
+      table.integer('phone').notNullable();
       table.string('profilePicture');
       table.string('bio');
       table.string('birthdate');
       table.string('passwordChangeAt').defaultTo(null);
-      table.integer('role').defaultTo(2);
+      table
+        .integer('roleId')
+        .defaultTo(2)
+        .notNullable()
+        .references('id')
+        .inTable('roles');
       table.timestamps(true, true);
     })
     .createTable('tweets', (table) => {

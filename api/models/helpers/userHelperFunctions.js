@@ -7,7 +7,22 @@ const bcrypt = require('bcrypt');
  * @returns {object} the all records
  */
 const select = () => {
-  return db('users');
+  return db('users')
+    .join('roles as r', 'users.roleId','=', 'r.id')
+    .select(
+      'users.id as id',
+      'username',
+      'users.name',
+      'email',
+      'password',
+      'profilePicture',
+      'bio',
+      'birthdate',
+      'passwordChangeAt',
+      'r.name as role',
+      'created_at',
+      'updated_at'
+    );
 };
 
 /**
@@ -43,6 +58,7 @@ exports.selectById = async (id) => {
  */
 exports.createUser = async (user) => {
   const hash = bcrypt.hashSync(user.password, 12);
+
   const [id] = await db('users').insert({
     email: user.email,
     password: hash,

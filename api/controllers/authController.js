@@ -26,9 +26,9 @@ const createTokenandSent = (user, statusCode, res) => {
   res.cookie('jwt', token, cookieOptions);
 
   delete user.password; // don't show password
+  delete user.passwordChangeAt; // don't show password
 
   // 3) sent back token & user info
-
   res.status(statusCode).json({
     status: 'success',
     token,
@@ -123,7 +123,7 @@ exports.proctect = catchAsync(async (req, res, next) => {
 exports.restrictTo = (...roles) => {
   // roles ["admin", "instructor"]. role = user
   return (req, res, next) => {
-    if (!roles.includes(req.currentUser.role)) {
+    if (!roles.includes(req.user.role)) {
       return next(
         new AppError(
           'You do not have a permission to perform this action!',
@@ -131,5 +131,22 @@ exports.restrictTo = (...roles) => {
         )
       );
     }
+    next();
   };
 };
+
+exports.updatePassword = catchAsync(async (req, res, next) => {
+  const { password } = req.user;
+  // 1) Get the user form the database
+  cosnt[user] = await userModel.findById(req.user.id);
+
+  // 2) Check if POSTed current password is
+  if (!(await userModel.correctPassword(req.user.password, user.password))) {
+    return next(new AppError('Your current password is Wrong', 401));
+  }
+
+  // 3) if so, update password
+  const [user] = await userModel.findByIdandUpdate(id, { password });
+
+  // 4) log user in,sent JWT
+});
