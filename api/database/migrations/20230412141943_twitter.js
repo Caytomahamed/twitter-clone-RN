@@ -5,13 +5,15 @@ exports.up = function (knex) {
     })
     .createTable('users', (table) => {
       table.increments('id').primary();
-      table.string('username').notNullable();
-      table.string('name').notNullable();
+      table.string('username');
+      table.string('name');
       table.string('email').notNullable();
       table.string('password').notNullable();
       table.string('profilePicture');
       table.string('bio');
       table.string('birthdate');
+      table.string('passwordChangeAt').defaultTo(null);
+      table.integer('role').defaultTo(2);
       table.timestamps(true, true);
     })
     .createTable('tweets', (table) => {

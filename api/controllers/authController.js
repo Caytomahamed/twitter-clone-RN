@@ -1,3 +1,4 @@
+const { promisify } = require('util');
 const userModel = require('../models/model/userModel');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
@@ -79,3 +80,56 @@ exports.login = catchAsync(async (req, res, next) => {
   // 3) everthing is ok, sent back a Token
   createTokenandSent(user, 200, res);
 });
+
+exports.proctect = catchAsync(async (req, res, next) => {
+  // 1) check if token access
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    token = req.headers.authorization.split(' ')[1];
+  }
+
+  if (!token) {
+    return next(
+      new AppError('You are not logged in!.Please log in to get access', 401)
+    );
+  }
+
+  // 2). verification token or expired
+  const decode = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
+  // 3). check if still user exist
+  const [currentUser] = await userModel.findById(decode.id);
+
+  if (!currentUser) {
+    return next(
+      new AppError('The user belonging this token does no longer exist!', 401)
+    );
+  }
+  // 4). check if user change after the token was issued
+  if (userModel.changePasswordAfter(currentUser.passwordChangeAt, decode.iat)) {
+    return next(
+      new AppError('User recently changed password!. Please log in again!', 401)
+    );
+  }
+
+  // GRANT access TO PROCTECT ROUTE
+  req.user = currentUser;
+  next();
+});
+
+exports.restrictTo = (...roles) => {
+  // roles ["admin", "instructor"]. role = user
+  return (req, res, next) => {
+    if (!roles.includes(req.currentUser.role)) {
+      return next(
+        new AppError(
+          'You do not have a permission to perform this action!',
+          401
+        )
+      );
+    }
+  };
+};

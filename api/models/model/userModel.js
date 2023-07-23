@@ -1,6 +1,6 @@
 const userHelper = require('../helpers/userHelperFunctions');
 const helperFactory = require('../helpers/handlerFactory');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 
 /**
  * Model: select all  records in .
@@ -16,7 +16,8 @@ exports.findAll = () => userHelper.selectBy();
  * @param {Number} id - use to filter the records.
  * @returns {object} the record.
  */
-exports.findById = (id) => helperFactory.getOne('users', 'users.id', id);
+exports.findById = (id) =>
+  helperFactory.getOne({ table: 'users', column: 'users.id', id });
 
 /**
  * Model: select  records in database BY FILTER.
@@ -34,13 +35,14 @@ exports.findOne = (filter) => userHelper.selectBy(filter);
  */
 exports.create = (user) => userHelper.createUser(user);
 
-exports.findByIdandUpdate = (id,changes) => helperFactory.updateOne({
-    table:"users",
-    condition:"id",
-    getById:this.findById,
+exports.findByIdandUpdate = (id, changes) =>
+  helperFactory.updateOne({
+    table: 'users',
+    condition: 'id',
+    getById: this.findById,
     changes,
-    id
-})
+    id,
+  });
 
 /**
  * Model: check if password is correct
@@ -51,5 +53,15 @@ exports.findByIdandUpdate = (id,changes) => helperFactory.updateOne({
  */
 
 exports.correctPassword = async (password, userPassword) => {
-    return await bcrypt.compare(password,userPassword)
-}
+  return await bcrypt.compare(password, userPassword);
+};
+
+exports.changePasswordAfter = (updateAt, JWTTimestamp) => {
+  if (updateAt) {
+    const changeTimestamp = parseInt(new Date(updateAt).getTime() / 1000, 10);
+    return JWTTimestamp < changeTimestamp;
+  }
+
+  // is not changed
+  return false;
+};

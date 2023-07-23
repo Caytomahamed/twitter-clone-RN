@@ -44,14 +44,9 @@ exports.selectById = async (id) => {
 exports.createUser = async (user) => {
   const hash = bcrypt.hashSync(user.password, 12);
   const [id] = await db('users').insert({
-    username: user.username,
     email: user.email,
     password: hash,
-    profilePicture: user.profilePicture,
-    bio: user.bio,
   });
 
   return this.selectById(id);
 };
-
-

@@ -23,6 +23,7 @@ exports.getAll = async ({ table }) => {
  * @returns {object} the record
  */
 exports.getOne = async ({ table, column, id }) => {
+  console.log(`${table} ${column} ${id}`);
   return await db(`${table}`).where(`${column}`, id);
 };
 
@@ -39,7 +40,17 @@ exports.createOne = async ({ table, newData, column }) => {
   const [id] = await db(`${table}`).insert(newData);
   return this.getOne(table, column, id);
 };
-
+/**
+ * HandleHepler: update record in database
+ * @exports
+ *
+ * @param {string} table - the table that update to record
+ * @param {string} condition - this record data
+ * @param {Function} getById - column use for fillter
+ * @param {object} changes - new data
+ * @param {number} id - id of the document
+ * @returns {object} the new record
+ */
 exports.updateOne = async ({ table, condition, getById, changes, id }) => {
   await db(`${table}`).where(`${condition}`, id).update(changes);
   return getById(id);
