@@ -62,6 +62,7 @@ exports.createUser = async (user) => {
   const [id] = await db('users').insert({
     email: user.email,
     password: hash,
+    phone:user.phone
   });
 
   return this.selectById(id);

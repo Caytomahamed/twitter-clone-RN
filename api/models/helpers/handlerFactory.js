@@ -1,4 +1,5 @@
 const db = require('../../database/dbConfig');
+const bcrypt = require('bcrypt');
 
 /**
  * HandleHepler: get a record in database
@@ -52,6 +53,10 @@ exports.createOne = async ({ table, newData, column }) => {
  * @returns {object} the new record
  */
 exports.updateOne = async ({ table, condition, getById, changes, id }) => {
+  console.log("🧣",changes);
+  if (changes.password) {
+    changes.password = bcrypt.hashSync(changes.password, 12);
+  }
   await db(`${table}`).where(`${condition}`, id).update(changes);
   return getById(id);
 };

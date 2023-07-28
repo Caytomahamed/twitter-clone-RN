@@ -136,17 +136,23 @@ exports.restrictTo = (...roles) => {
 };
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
-  const { password } = req.user;
   // 1) Get the user form the database
-  cosnt[user] = await userModel.findById(req.user.id);
+  const [user] = await userModel.findById(req.user.id);
 
   // 2) Check if POSTed current password is
-  if (!(await userModel.correctPassword(req.user.password, user.password))) {
+  if (!(await userModel.correctPassword(req.body.currentPassword, user.password))) {
     return next(new AppError('Your current password is Wrong', 401));
   }
 
   // 3) if so, update password
-  const [user] = await userModel.findByIdandUpdate(id, { password });
+  const change = {
+    password:req.body.password,
+    passwordChangeAt: Date.now() - 1000,
+  };
+
+  await userModel.findByIdandUpdate(user.id, change);
 
   // 4) log user in,sent JWT
+  console.log("✋",user);
+  createTokenandSent(user,201,res)
 });
