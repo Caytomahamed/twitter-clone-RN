@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
  */
 const select = () => {
   return db('users')
-    .join('roles as r', 'users.roleId','=', 'r.id')
+    .join('roles as r', 'users.roleId', '=', 'r.id')
     .select(
       'users.id as id',
       'username',
@@ -32,7 +32,7 @@ const select = () => {
  * @param {object} filter - this filter condition and field/column
  * @returns {object} the filter record
  */
-exports.selectBy = async (filter) => {
+exports.selectBy = async filter => {
   if (filter) {
     return select().where(`${filter.condition}`, filter.field);
   }
@@ -46,7 +46,7 @@ exports.selectBy = async (filter) => {
  * @param {number} id - this id condition to get a row
  * @returns {object} the  record has this id
  */
-exports.selectById = async (id) => {
+exports.selectById = async id => {
   return select().where(`users.id`, id);
 };
 
@@ -56,14 +56,23 @@ exports.selectById = async (id) => {
  * @param {object} newData - this record data
  * @returns {object} the new record
  */
-exports.createUser = async (user) => {
+exports.createUser = async user => {
   // const hash = bcrypt.hashSync(user.password, 12);
- 
+
   const [id] = await db('users').insert({
     email: user.email,
-    name:user.name,
-    birthdate:user.birthdate
+    name: user.name,
+    birthdate: user.birthdate,
   });
 
   return this.selectById(id);
+};
+
+exports.generateVerificationCode = () => {
+  return Math.floor(Math.random() * 999999 + 100000);
+};
+
+exports.checkVerificationCodeExpire = expiredTime => {
+  const timeNow = new Date().getTime();
+  return timeNow > expiredTime.getTime() + 10 * 60 + 1000; // +10min
 };

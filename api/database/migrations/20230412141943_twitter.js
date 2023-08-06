@@ -1,9 +1,9 @@
 exports.up = function (knex) {
   return knex.schema
-    .createTable('roles', (table) => {
+    .createTable('roles', table => {
       table.increments('id').primary(), table.string('name').notNullable();
     })
-    .createTable('users', (table) => {
+    .createTable('users', table => {
       table.increments('id').primary();
       table.string('username');
       table.string('name').notNullable();
@@ -21,7 +21,18 @@ exports.up = function (knex) {
         .inTable('roles');
       table.timestamps(true, true);
     })
-    .createTable('tweets', (table) => {
+    .createTable('verficationCode', table => {
+      table.increments('id').primary();
+      table
+        .integer('userId')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('users');
+      table.integer('code').notNullable();
+      table.integer('expiredTime');
+    })
+    .createTable('tweets', table => {
       table.increments('id').primary();
       table
         .integer('userId')
@@ -34,7 +45,7 @@ exports.up = function (knex) {
       table.integer('retweets').unsigned().defaultTo(0);
       table.timestamps(true, true);
     })
-    .createTable('likes', (table) => {
+    .createTable('likes', table => {
       table.increments('id').primary();
       table
         .integer('userId')
@@ -50,7 +61,7 @@ exports.up = function (knex) {
         .inTable('tweets');
       table.timestamps(true, true);
     })
-    .createTable('retweets', (table) => {
+    .createTable('retweets', table => {
       table.increments('id').primary();
       table
         .integer('userId')
@@ -66,7 +77,7 @@ exports.up = function (knex) {
         .inTable('tweets');
       table.timestamps(true, true);
     })
-    .createTable('follows', (table) => {
+    .createTable('follows', table => {
       table.increments('id').primary();
       table
         .integer('followerUserId')
@@ -82,12 +93,12 @@ exports.up = function (knex) {
         .inTable('users');
       table.timestamps(true, true);
     })
-    .createTable('hashtags', (table) => {
+    .createTable('hashtags', table => {
       table.increments('id').primary();
       table.string('text').notNullable();
       table.timestamps(true, true);
     })
-    .createTable('tweetHashtags', (table) => {
+    .createTable('tweetHashtags', table => {
       table
         .integer('tweetId')
         .unsigned()
@@ -102,7 +113,7 @@ exports.up = function (knex) {
         .inTable('hashtags');
       table.timestamps(true, true);
     })
-    .createTable('settings', (table) => {
+    .createTable('settings', table => {
       table.increments('id').primary();
       table
         .integer('userId')
@@ -125,6 +136,7 @@ exports.down = function (knex) {
     .dropTable('retweets')
     .dropTable('likes')
     .dropTable('tweets')
+    .dropTable('verficationCode')
     .dropTable('users')
     .dropTable('roles');
 };
