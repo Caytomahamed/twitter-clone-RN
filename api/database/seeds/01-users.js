@@ -13,7 +13,6 @@ exports.seed = async function (knex) {
       username: 'admin',
       email: 'admin@example.com',
       password: '$2b$12$pc.dmeMe7XIkWtSpudmEKOG.GxjzCqyj0.t3VV.1UJif3DS32pC96', // password123
-      phone: 20003994,
       profilePicture:
         'https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg',
       bio: 'Tech enthusiast | Basketball fan 🏀 | Foodie 🍔🍟',
@@ -25,7 +24,6 @@ exports.seed = async function (knex) {
       username: 'jane_doe',
       email: 'jane_doe@example.com',
       password: 'password123',
-      phone: 333333333,
       profilePicture:
         'https://s3.amazonaws.com/uifaces/faces/twitter/olegpogodaev/128.jpg',
       bio: 'Coffee lover ☕️ | Travel enthusiast ✈️ | Bookworm 📚',

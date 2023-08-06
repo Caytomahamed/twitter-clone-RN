@@ -6,13 +6,12 @@ exports.up = function (knex) {
     .createTable('users', (table) => {
       table.increments('id').primary();
       table.string('username');
-      table.string('name');
+      table.string('name').notNullable();
       table.string('email').notNullable();
-      table.string('password').notNullable();
-      table.integer('phone').notNullable();
+      table.integer('password').defaultTo(1234567);
       table.string('profilePicture');
       table.string('bio');
-      table.string('birthdate');
+      table.string('birthdate').notNullable();
       table.string('passwordChangeAt').defaultTo(null);
       table
         .integer('roleId')

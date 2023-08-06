@@ -3,7 +3,6 @@ const factory = require('../controllers/handlerFactory');
 const catchAsync = require('../utils/catchAsync');
 const appError = require('../utils/appError');
 
-
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
   Object.keys(obj).forEach((el) => {
@@ -23,6 +22,8 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     );
   }
 
+  console.log(req.body);
+
   // 2. filtered unwanted field that we are not allowed to update
   const filteredBody = filterObj(
     req.body,
@@ -34,6 +35,13 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   );
 
   //2. update user
-//   const [updateUser] = await userModel.
+  const [updateUser] = await userModel.findByIdandUpdate(req.user.id, filteredBody);
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      user: updateUser,
+    },
+  });
 });
 exports.getAllusers = factory.getAll(userModel);
