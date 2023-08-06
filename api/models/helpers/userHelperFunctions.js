@@ -1,5 +1,7 @@
 const db = require('../../database/dbConfig');
 const bcrypt = require('bcrypt');
+const email = require('../../utils/email');
+const AppError = require('../../utils/appError');
 
 /**
  * select all records in database
@@ -68,11 +70,109 @@ exports.createUser = async user => {
   return this.selectById(id);
 };
 
-exports.generateVerificationCode = () => {
+const generateVerificationCode = () => {
   return Math.floor(Math.random() * 999999 + 100000);
 };
 
-exports.checkVerificationCodeExpire = expiredTime => {
+const checkVerificationCodeExpire = expiredTime => {
   const timeNow = new Date().getTime();
   return timeNow > expiredTime.getTime() + 10 * 60 + 1000; // +10min
+};
+
+// send verification code
+
+exports.sendVerificationCode = async (user,next) => {
+  try {
+    if (!checkVerificationCodeExpire(newUser.created_at)) {
+      return next(
+        new AppError(
+          'Your verification code Expired.Please Try again or Resent!',
+          401
+        )
+      );
+    }
+    const code = generateVerificationCode();
+    const options = {
+      email: user.email,
+      subject: 'Account Verification Code (valid for 10 min)',
+      message: `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Account Verification Code</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+          }
+
+          .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          }
+
+          h1 {
+            color: #333333;
+            margin-top: 0;
+          }
+
+          p {
+            color: #666666;
+            line-height: 1.5;
+          }
+
+          .verification-code {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 18px;
+            margin-bottom: 20px;
+          }
+
+          .button {
+            display: inline-block;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+          }
+
+          .button:hover {
+            background-color: #0056b3;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>Account Verification Code - Action Required</h1>
+          <p>Dear ${user.name},</p>
+          <p>Thank you for choosing our platform! To ensure the security of your account, we are implementing an additional layer of protection by introducing an account verification process.</p>
+          <p>As part of this process, we have generated a unique verification code for you:</p>
+          <div class="verification-code">${code}</div>
+          <p>Please use this code to complete the verification process and gain full access to your account.</p>
+          <p>Please note that the verification code is time-sensitive and will expire after 10 min. If the code expires, you will need to request a new one.</p>
+          <p>If you did not initiate this verification process, please contact our support team immediately at twitter@example.tw. We take account security seriously and will investigate any suspicious activity promptly.</p>
+          <p>Thank you for your cooperation in helping us maintain a secure environment for all our users.</p>
+          <p>Best regards,<br>twitter clone</p>
+          <p>twitter@example.tw</p>
+        </div>
+      </body>
+      </html>`,
+    };
+    await email.sendEmail(options);
+  } catch (error) {
+    return next(
+      new AppError(
+        'There was an error sending the email. Try again later!',
+        500
+      )
+    );
+  }
 };

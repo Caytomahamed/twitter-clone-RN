@@ -16,8 +16,8 @@ exports.sendEmail = async options => {
     from: 'twitter <twitter@example.io>',
     to: options.email,
     subject: options.subject,
-    text: options.message,
-    // html
+    // text: options.message,
+    html: options.message
   };
 
   // 3) Actually send the email

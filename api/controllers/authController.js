@@ -1,7 +1,6 @@
 const { promisify } = require('util');
 const userModel = require('../models/model/userModel');
 const AppError = require('../utils/appError');
-const email = require('../utils/email');
 const catchAsync = require('../utils/catchAsync');
 const userHelperFunctions = require('../models/helpers/userHelperFunctions');
 const jwt = require('jsonwebtoken');
@@ -56,33 +55,8 @@ exports.signup = catchAsync(async (req, res, next) => {
   //2) Is not Exits Create user
   const [newUser] = await userModel.create(req.body);
 
-  const code = userHelperFunctions.generateVerificationCode();
   //3) Send a verCode
-
-  try {
-    if (!userHelperFunctions.checkVerificationCodeExpire(newUser.created_at)) {
-      return next(
-        new AppError(
-          'Your verification code Expired.Please Try again or Resent!',
-          401
-        )
-      );
-    }
-    const options = {
-      email: newUser.email,
-      subject: 'Your verification code (valid for 10 min)',
-      message: `Your verification code (valid for 10 min) ${code}`,
-    };
-    await email.sendEmail(options);
-  } catch (error) {
-    return next(
-      new AppError(
-        'There was an error sending the email. Try again later!',
-        500
-      )
-    );
-  }
-
+  await userHelperFunctions.sendVerificationCode(newUser,next);
   //3) Login Token
   createTokenandSent(newUser, 201, res);
 });
