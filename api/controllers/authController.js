@@ -146,7 +146,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 
   // 3) if so, update password
   const change = {
-    password:req.body.password,
+    password: req.body.password,
     passwordChangeAt: Date.now() - 1000,
   };
 

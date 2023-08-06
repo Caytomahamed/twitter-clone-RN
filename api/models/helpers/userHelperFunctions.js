@@ -57,12 +57,12 @@ exports.selectById = async (id) => {
  * @returns {object} the new record
  */
 exports.createUser = async (user) => {
-  const hash = bcrypt.hashSync(user.password, 12);
-
+  // const hash = bcrypt.hashSync(user.password, 12);
+ 
   const [id] = await db('users').insert({
     email: user.email,
-    password: hash,
-    phone:user.phone
+    name:user.name,
+    birthdate:user.birthdate
   });
 
   return this.selectById(id);
